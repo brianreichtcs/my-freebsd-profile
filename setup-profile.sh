@@ -17,8 +17,8 @@ if ! [ -x "$(command -v zsh)" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-if ~ [ -x "$(command -v nvim)" ]; then
+if ! [ -x "$(command -v nvim)" ]; then
     echo "Neovim is not installed. Installing"
-    pkg install -y nvim
+    pkg install -y neovim
 fi
 
