@@ -3,6 +3,7 @@
 echo "Setting up Git defaults..."
 git config --global user.email "brian.reich@thecoresolution.com"
 git config --global user.name "Brian Reich"
+git config pull.rebase false
 
 if ! [ -x "$(command -v zsh)" ]; then
     echo "ZSH is not installed. Installing"
