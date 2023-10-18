@@ -16,3 +16,17 @@ if ! [ -x "$(command -v nvim)" ]; then
     sudo pkg install -y neovim
 fi
 
+if ! [ -x "$(command -v unzip)" ]; then
+    echo "unzip not found. Installing"
+    pkg install -y unzip 
+fi
+
+if ! [ -x "$(command -v wget)" ]; then
+    echo "wget not found. Installing"
+    pkg install -y wget
+fi
+
+echo "Setting up default Neovim config..."
+git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+nvim --headless "+Lazy! sync" +qa
+
