@@ -43,3 +43,6 @@ echo "Setting up default Neovim config..."
 git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
 nvim --headless "+Lazy! sync" +qa
 
+echo "Setting up Neovim plugin manager..."
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
