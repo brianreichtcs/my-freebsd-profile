@@ -11,6 +11,9 @@ if ! [ -x "$(command -v zsh)" ]; then
     sudo pkg install -y zsh
 fi
 
+echo "Copying Zshell config..."
+cp .zshrc ~
+
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 if ! [ -x "$(command -v tmux)" ]; then
