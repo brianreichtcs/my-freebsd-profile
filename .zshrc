@@ -105,5 +105,5 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias core-clean="/data/ccp/vendor/bin/phing clean"
 alias core-install="/data/ccp/vendor/bin/phing install"
-alias php-clear-log="sudo truncate -s /var/log/php.log"
+alias php-clear-log="sudo truncate -s 0 /var/log/php.log"
 
