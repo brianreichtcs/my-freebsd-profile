@@ -43,3 +43,6 @@ echo "Setting up default Neovim config..."
 git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
 nvim --headless "+Lazy! sync" +qa
 
+echo "Settings up PHPCS..."
+composer global require "squizlabs/php_codesniffer=*" --dev
+
