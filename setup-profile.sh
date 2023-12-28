@@ -11,6 +11,9 @@ if ! [ -x "$(command -v zsh)" ]; then
     sudo pkg install -y zsh
 fi
 
+echo "Copying Zshell config..."
+cp .zshrc ~
+
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 if ! [ -x "$(command -v tmux)" ]; then
@@ -41,6 +44,9 @@ fi
 
 echo "Setting up default Neovim config..."
 cp -fr config/.config ~/.config
+
+echo "Settings up PHPCS..."
+composer global require "squizlabs/php_codesniffer=*" --dev
 
 echo "Installing vimeo/psalm globally..."
 composer global require --dev vimeo/psalm
