@@ -11,10 +11,16 @@ if ! [ -x "$(command -v zsh)" ]; then
     sudo pkg install -y zsh
 fi
 
+echo "Setting up ZSH Syntax Highlighting..."
+sudo pkg install -y zsh-syntax-highlighting
+
 echo "Copying Zshell config..."
-cp .zshrc ~
+cp config/.zshrc ~
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+echo "Loading ZSH config..."
+source ~/.zshrc
 
 if ! [ -x "$(command -v tmux)" ]; then
     echo "tmux not found. Installing..."
