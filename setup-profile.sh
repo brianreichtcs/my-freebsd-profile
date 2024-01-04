@@ -43,6 +43,29 @@ if ! [ "$(sudo pkg check -B ripgrep)" ]; then
     sudo pkg install -y ripgrep
 fi
 
+# if ! [ -x "$(command -v luarocks)" ]; then
+    echo "Installing Luarocks package manager"
+
+    # Download
+    wget -O luarocks.tar.gz https://luarocks.github.io/luarocks/releases/luarocks-3.9.2.tar.gz
+    
+    # Extract
+    tar -xvzf luarocks.tar.gz
+    
+    # Do the build dance
+    cd luarocks-3.9.2
+    ./configure
+    make
+    sudo make install
+    cd ..
+
+    # Cleanup
+    rm -fr luarocks*
+# fi
+
+echo "Installing jsregexp Lua dependency required by snippets extension..."
+sudo luarocks install jsregexp
+
 if ! [ -x "$(command -v unzip)" ]; then
     echo "unzip not found. Installing"
     sudo pkg install -y unzip 
