@@ -28,6 +28,9 @@ vim.g.mapleader = " "
 -- Automatically intend next line when appropriate.
 vim.cmd("set autoindent")
 
+-- Show line numbers
+vim.cmd("set number")
+
 -- [[ 
 -- Setup the Lazy package manager. We are going to setup Lazy to load plugin
 -- files from ~/.config/nvim/lua/plugins/*, so we can split up our
