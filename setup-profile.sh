@@ -38,18 +38,23 @@ if ! [ -x "$(command -v nvim)" ]; then
     sudo pkg install -y neovim
 fi
 
+if ! [ "$(sudo pkg check -B ripgrep)" ]; then
+    echo "Installing ripgrep"
+    sudo pkg install -y ripgrep
+fi
+
 if ! [ -x "$(command -v unzip)" ]; then
     echo "unzip not found. Installing"
-    pkg install -y unzip 
+    sudo pkg install -y unzip 
 fi
 
 if ! [ -x "$(command -v wget)" ]; then
     echo "wget not found. Installing"
-    pkg install -y wget
+    sudo pkg install -y wget
 fi
 
 echo "Setting up default Neovim config..."
-rm -fr config/.config
+rm -fr ~/.config 
 cp -fr config/.config ~/.config
 
 echo "Settings up PHPCS..."
