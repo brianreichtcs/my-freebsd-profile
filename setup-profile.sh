@@ -43,7 +43,7 @@ if ! [ "$(sudo pkg check -B ripgrep)" ]; then
     sudo pkg install -y ripgrep
 fi
 
-# if ! [ -x "$(command -v luarocks)" ]; then
+if ! [ -x "$(command -v luarocks)" ]; then
     echo "Installing Luarocks package manager"
 
     # Download
@@ -61,7 +61,7 @@ fi
 
     # Cleanup
     rm -fr luarocks*
-# fi
+fi
 
 echo "Installing jsregexp Lua dependency required by snippets extension..."
 sudo luarocks install jsregexp
