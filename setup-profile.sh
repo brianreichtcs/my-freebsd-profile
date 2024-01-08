@@ -77,7 +77,7 @@ if ! [ -x "$(command -v wget)" ]; then
 fi
 
 echo "Setting up default Neovim config..."
-rm -fr ~/.config 
+rm -fr ~/.config
 cp -fr config/.config ~/.config
 
 echo "Settings up PHPCS..."
