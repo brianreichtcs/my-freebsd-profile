@@ -48,6 +48,22 @@ if ! [ -x "$(command -v wget)" ]; then
     pkg install -y wget
 fi
 
+if ! [ -x "$(command -v starship)" ]; then
+    echo "starship not found. Installing"
+
+    # Install Starship
+    pkg install -y starship
+
+    # Install gruvbox-rainbow presets
+    starship preset gruvbox-rainbow -o ~/.config/starship.toml
+
+    # Add line to init starship to .zshrc
+    echo 'eval "$(starship init zsh)"' >> ~/.zshrc
+
+    # Init starship
+    starship init zsh
+fi
+
 echo "Setting up default Neovim config..."
 rm -fr ~/.config
 cp -fr config/.config ~/.config
