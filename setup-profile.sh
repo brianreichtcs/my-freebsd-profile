@@ -48,6 +48,10 @@ if ! [ -x "$(command -v wget)" ]; then
     pkg install -y wget
 fi
 
+echo "Installing ESLint..."
+npm install eslint --global
+npm install eslint-plugin-html --global
+
 if ! [ -x "$(command -v starship)" ]; then
     echo "starship not found. Installing"
 
@@ -73,3 +77,6 @@ composer global require "squizlabs/php_codesniffer=*" --dev
 
 echo "Installing vimeo/psalm globally..."
 composer global require --dev vimeo/psalm
+
+echo "Copying git configuration file..."
+cp config/.gitconfig ~

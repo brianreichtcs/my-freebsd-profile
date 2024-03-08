@@ -1,0 +1,7 @@
+[user]
+	email = brian.reich@thecoresolution.com
+	name = Brian Reich
+[push]
+    autoSetupRemote = true
+[core]
+    hooksPath = "./ops/git/hooks"
