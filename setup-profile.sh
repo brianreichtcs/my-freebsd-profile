@@ -50,7 +50,7 @@ fi
 
 echo "Installing ESLint..."
 npm install eslint --global
-npm install eslint-plugin-html --global
+sudo npm install eslint-plugin-html --global
 
 if ! [ -x "$(command -v starship)" ]; then
     echo "starship not found. Installing"
