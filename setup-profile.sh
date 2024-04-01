@@ -68,6 +68,15 @@ if ! [ -x "$(command -v starship)" ]; then
     starship init zsh
 fi
 
+echo "Setting up Lua Language Server..."
+sudo pkg install -y ninja
+git clone https://github.com/LuaLS/lua-language-server.git
+cd lua-language-server
+truncate -s 0 3rd/bee.lua/test/test.lua
+truncate -s test.lua
+./make.sh
+cd ..
+
 echo "Setting up default Neovim config..."
 rm -fr ~/.config
 cp -fr config/.config ~/.config
