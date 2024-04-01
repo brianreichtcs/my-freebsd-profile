@@ -73,9 +73,10 @@ sudo pkg install -y ninja
 git clone https://github.com/LuaLS/lua-language-server.git
 cd lua-language-server
 truncate -s 0 3rd/bee.lua/test/test.lua
-truncate -s test.lua
+truncate -s 0 test.lua
 ./make.sh
 cd ..
+rm -fr lua-language-server
 
 echo "Setting up default Neovim config..."
 rm -fr ~/.config
