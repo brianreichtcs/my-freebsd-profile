@@ -1,5 +1,11 @@
 #!/bin/sh
 
+echo "Settings up jq..."
+if ! [ -x $(command -v jq) ]; then
+    echo "Installing jq..."
+    sudo pkg install -y jq
+fi
+
 echo "Setting up Git defaults..."
 git config --global user.email "brian.reich@thecoresolution.com"
 git config --global user.name "Brian Reich"
