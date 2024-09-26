@@ -1,7 +1,6 @@
 #!/bin/sh
 
-echo "Settings up jq..."
-if ! [ -x $(command -v jq) ]; then
+if ! [ -x "$(command -v jq)" ]; then
     echo "Installing jq..."
     sudo pkg install -y jq
 fi
