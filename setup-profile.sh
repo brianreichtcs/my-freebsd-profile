@@ -31,7 +31,8 @@ cp ./config/.zshrc ~/.zshrc
 
 echo "zsh setup complete. The next time you login, zsh will be your default shell."
 
-# Make sure tmux is setup.
+# Make sure tmux is setup, tmux plugin manager, and add our custom tmux
+# configuration files
 
 if ! [ -x "$(command -v tmux)" ]; then
     echo "tmux not found. Installing..."
@@ -41,26 +42,35 @@ fi
 echo "Setting up tmux plugin manager..."
 tmuxPluginsPath="~/.tmux/plugins/tpm"
 rm -fr $tmuxPluginPath
-git clone https://github.com/tmux-plugins/tpm "$tmuxPluginPath"
+git clone https://github.com/tmux-plugins/tpm "$tmuxPluginPath" > /dev/null 2>&1
 
-exit 1
 echo "Installing my tmux configuration..."
 cp config/.tmux.conf ~
 
+echo "tmux setup and configuration is complete."
+
+# Get neovim setup
+
+echo "Installing neovim..."
+
 if ! [ -x "$(command -v nvim)" ]; then
     echo "Neovim is not installed. Installing"
-    sudo pkg install -y neovim
+    sudo apt install -y neovim > /dev/null 2>&1
 fi
+
+# Setup some other stuff that we might need.
 
 if ! [ -x "$(command -v unzip)" ]; then
     echo "unzip not found. Installing"
-    pkg install -y unzip 
+    sudo apt install -y unzip > /dev/null 2>&1
 fi
 
 if ! [ -x "$(command -v wget)" ]; then
     echo "wget not found. Installing"
-    pkg install -y wget
+    sudo apt install -y wget > /dev/null 2>&1
 fi
+
+exit 0
 
 echo "Installing ESLint..."
 npm install eslint --global
