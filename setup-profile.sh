@@ -95,7 +95,9 @@ sudo npm install eslint-plugin-html --global > /dev/null 2>&1
 echo "ESLint installation and configuration is completed."
 
 # Install starship, which is some fancy schmancy CLI toolbar stuff
-
+# We also add starship to our zsh config, and set some presets
+# for our color scheme
+#
 echo "Installing starship..."
 
 if ! [ -x "$(command -v starship)" ]; then
@@ -107,15 +109,16 @@ if ! [ -x "$(command -v starship)" ]; then
     ./install.sh -f
     rm install.sh
 
-    # Install gruvbox-rainbow presets
-    starship preset gruvbox-rainbow -o ~/.config/starship.toml
-
     # Add line to init starship to .zshrc
     echo 'eval "$(starship init zsh)"' >> ~/.zshrc
-
-    # Init starship
-    starship init zsh
 fi
+
+echo "Initializing starship for zsh..."
+starship init zsh  > /dev/null 2>&1
+
+echo "Initializing starship presets..."
+starship preset gruvbox-rainbow -o ~/.config/starship.toml > /dev/null 2>&1
+
 echo "Starship setup and configuration is complete."
 
 echo "Settings up PHPCS..."
