@@ -59,10 +59,13 @@ if ! [ -x "$(command -v nvim)" ]; then
 fi
 
 echo "Purging any existing neovim config..."
-rm -fr ./config
+rm -fr ~/.config
 
 echo "Copying baseline configuration..."
 cp -fr ./config/.config ~/.config
+
+echo "Instructing neovim to install all it's plugins..."
+nvim +PlugInstall +qall
 
 echo "Neovim setup and configuration is complete."
 
@@ -116,10 +119,13 @@ fi
 echo "Starship setup and configuration is complete."
 
 echo "Settings up PHPCS..."
-composer global require "squizlabs/php_codesniffer=*" --dev
+composer global require "squizlabs/php_codesniffer=*" --dev > /dev/null 2>&1
 
 echo "Installing vimeo/psalm globally..."
-composer global require --dev vimeo/psalm
+composer global require --dev vimeo/psalm > /dev/null 2>&1
 
 echo "Copying git configuration file..."
 cp config/.gitconfig ~
+
+echo "Ubuntu environment setup complete. Have fun!"
+
