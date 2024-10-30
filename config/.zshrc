@@ -106,7 +106,7 @@ source $ZSH/oh-my-zsh.sh
 alias core-clean="/data/ccp/vendor/bin/phing clean"
 alias core-install="/data/ccp/vendor/bin/phing install"
 alias php-clear-log="sudo truncate -s 0 /var/log/php.log"
-alias git-log-zoha="git log origin --all --author="zoha.kaukab@thecoresolution.com" --pretty=format:"%h %ad | %s%d [%an] %d" --source"
+alias git-log-zoha="git log origin --all --author=\"zoha.kaukab@thecoresolution.com\" --pretty=format:\"%h %ad | %s%d [%an] %d\" --source"
 
 # Syntax highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
