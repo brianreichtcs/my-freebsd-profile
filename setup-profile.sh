@@ -1,41 +1,49 @@
 #!/bin/sh
 
+# Setup git default such as email address, name, merge/rebase strategy, and
+# auto push options.
+
 echo "Setting up Git defaults..."
 git config --global user.email "brian.reich@thecoresolution.com"
 git config --global user.name "Brian Reich"
 git config pull.rebase false
 git config --global --add --bool push.autoSetupRemote true
 
+# Setup zsh, syntax highlighting, Oh My! zsh, and custom configuration.
+# Make zsh the default shell.
+
 if ! [ -x "$(command -v zsh)" ]; then
     echo "ZSH is not installed. Installing"
-    sudo apt install -y zsh
+    sudo apt install -y zsh > /dev/null 2>&1
 fi
 
 echo "Setting up zsh Syntax Highlighting..."
-sudo apt install -y zsh-syntax-highlighting
+sudo apt install -y zsh-syntax-highlighting > /dev/null 2>&1
 
 echo "Making zsh the default shell"
 chsh $(which zsh)
 
 echo "Installing Oh My! Zshell..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" > /dev/null 2>&1
 
 echo "Copying zsh config..."
 cp ./config/.zshrc ~/.zshrc
 
 echo "zsh setup complete. The next time you login, zsh will be your default shell."
 
+# Make sure tmux is setup.
 
 if ! [ -x "$(command -v tmux)" ]; then
     echo "tmux not found. Installing..."
     sudo apt install -y tmux
 fi
 
-exit 1
-
 echo "Setting up tmux plugin manager..."
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+tmuxPluginsPath="~/.tmux/plugins/tpm"
+rm -fr $tmuxPluginPath
+git clone https://github.com/tmux-plugins/tpm "$tmuxPluginPath"
 
+exit 1
 echo "Installing my tmux configuration..."
 cp config/.tmux.conf ~
 
