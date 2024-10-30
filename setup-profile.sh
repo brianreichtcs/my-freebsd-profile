@@ -70,11 +70,20 @@ if ! [ -x "$(command -v wget)" ]; then
     sudo apt install -y wget > /dev/null 2>&1
 fi
 
-exit 0
+# Setting up ESlint and any plugins we want to have.
 
-echo "Installing ESLint..."
-npm install eslint --global
-sudo npm install eslint-plugin-html --global
+if ! [ -x "$(command -v node)" ]; then
+    echo "Node is not installed. Installing..."
+    sudo apt install -y nodejs > /dev/null 2>&1
+fi
+
+echo "Installing ESlint..."
+npm install eslint --global > /dev/null 2>&1
+sudo npm install eslint-plugin-html --global > /dev/null 2>&1
+
+echo "ESLint installation and configuration is completed."
+
+exit 0
 
 if ! [ -x "$(command -v starship)" ]; then
     echo "starship not found. Installing"
