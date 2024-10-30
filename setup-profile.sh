@@ -8,24 +8,30 @@ git config --global --add --bool push.autoSetupRemote true
 
 if ! [ -x "$(command -v zsh)" ]; then
     echo "ZSH is not installed. Installing"
-    sudo pkg install -y zsh
+    sudo apt install -y zsh
 fi
 
-echo "Setting up ZSH Syntax Highlighting..."
-sudo pkg install -y zsh-syntax-highlighting
+echo "Setting up zsh Syntax Highlighting..."
+sudo apt install -y zsh-syntax-highlighting
 
-echo "Copying Zshell config..."
-cp config/.zshrc ~
+echo "Making zsh the default shell"
+chsh $(which zsh)
 
+echo "Installing Oh My! Zshell..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-echo "Loading ZSH config..."
-source ~/.zshrc
+echo "Copying zsh config..."
+cp ./config/.zshrc ~/.zshrc
+
+echo "zsh setup complete. The next time you login, zsh will be your default shell."
+
 
 if ! [ -x "$(command -v tmux)" ]; then
     echo "tmux not found. Installing..."
-    sudo pkg install -y tmux
+    sudo apt install -y tmux
 fi
+
+exit 1
 
 echo "Setting up tmux plugin manager..."
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
