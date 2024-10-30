@@ -58,6 +58,14 @@ if ! [ -x "$(command -v nvim)" ]; then
     sudo apt install -y neovim > /dev/null 2>&1
 fi
 
+echo "Purging any existing neovim config..."
+rm -fr ./config
+
+echo "Copying baseline configuration..."
+cp -fr ./config/.config ~/.config
+
+echo "Neovim setup and configuration is complete."
+
 # Setup some other stuff that we might need.
 
 if ! [ -x "$(command -v unzip)" ]; then
@@ -83,13 +91,18 @@ sudo npm install eslint-plugin-html --global > /dev/null 2>&1
 
 echo "ESLint installation and configuration is completed."
 
-exit 0
+# Install starship, which is some fancy schmancy CLI toolbar stuff
+
+echo "Installing starship..."
 
 if ! [ -x "$(command -v starship)" ]; then
-    echo "starship not found. Installing"
+    echo "starship not found. Installing..."
 
     # Install Starship
-    pkg install -y starship
+    curl -o ./install.sh https://starship.rs/install.sh
+    chmod +x ./install.sh
+    ./install.sh -f
+    rm install.sh
 
     # Install gruvbox-rainbow presets
     starship preset gruvbox-rainbow -o ~/.config/starship.toml
@@ -100,10 +113,7 @@ if ! [ -x "$(command -v starship)" ]; then
     # Init starship
     starship init zsh
 fi
-
-echo "Setting up default Neovim config..."
-rm -fr ~/.config
-cp -fr config/.config ~/.config
+echo "Starship setup and configuration is complete."
 
 echo "Settings up PHPCS..."
 composer global require "squizlabs/php_codesniffer=*" --dev
