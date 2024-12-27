@@ -105,7 +105,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias core-clean="/data/ccp/vendor/bin/phing clean"
 alias core-install="/data/ccp/vendor/bin/phing install"
+alias core-redistributable="/data/ccp/vendor/bin/phing redistributable"
 alias php-clear-log="sudo truncate -s 0 /var/log/php.log"
 
 # Syntax highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+eval "$(starship init zsh)"
