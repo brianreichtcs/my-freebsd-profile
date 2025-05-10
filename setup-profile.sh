@@ -3,41 +3,86 @@
 # Setup git default such as email address, name, merge/rebase strategy, and
 # auto push options.
 
+CONFIG_PATH=$(realpath "$(pwd)/config")
+USER_HOME_DIRECTORY=$(eval echo ~$USER)
+
+ERROR_CODE_VIM_DEFAULTS="Failed to install vim defaults"
+ERROR_CODE_VIM_DEFAULT=1
+ERROR_CODE_ZSH_INSTALL_FAILED=2
+ERROR_MESSAGE_ZSH_INSTALL_FAILED="zsh install failed"
+ERROR_MESSAGE_ZSH_HIGHLIGHTING_FAILED="Installing zsh syntax highlighting failed"
+ERROR_CODE_ZSH_HIGHLIGHTING_FAILED=3
+ERROR_MESSAGE_SET_SHELL_FAILED="Setting default shell to zsh failed"
+ERROR_CODE_SET_SHELL_FAILED=4
+ERROR_MESSAGE_OH_MY_ZSH_FAILED="Installing Oh My! Zshell failed"
+ERROR_CODE_OH_MY_ZSH_FAILED=5
+ERROR_MESSAGE_CONFIG_ZSH_FAILED="Configuring zsh failed"
+ERROR_CODE_CONFIG_ZSH_FAILED=6
+
+# Setup vim defaults by copying over the vim profile config to the
+# right location in the current user's home directory.
+echo "Setting up vim defaults..."
+cp  "$CONFIG_PATH/.vimrc" "$USER_HOME_DIRECTORY/.vimrc"
+if [ $? -ne 0 ]; then
+    echo $ERROR_MESSAGE_VIM_DEFAULTS
+    exit $ERROR_CODE_VIM_DEFAULT
+fi
+
+# Setup some opinionated Git defaults. This includes
+# - My email address
+# - My name
+# - Use merge, not rebase, to merge differing changes together
+# - Auto push to remote
 echo "Setting up Git defaults..."
 git config --global user.email "brian.reich@thecoresolution.com"
 git config --global user.name "Brian Reich"
 git config pull.rebase false
 git config --global --add --bool push.autoSetupRemote true
 
-# Setup zsh, syntax highlighting, Oh My! zsh, and custom configuration.
-# Make zsh the default shell.
-
+# Install zsh (Zshell) if it is not already installed
 if ! [ -x "$(command -v zsh)" ]; then
     echo "ZSH is not installed. Installing"
     sudo apt install -y zsh > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+		echo $ERROR_MESSAGE_ZSH_INSTALLED_FAILED
+        exit $ERROR_CODE_ZSH_INSTALL_FAILED
+	fi
 fi
 
+# Setup zsh syntax highlighting
 echo "Setting up zsh Syntax Highlighting..."
 sudo apt install -y zsh-syntax-highlighting > /dev/null 2>&1
-
-echo "Making zsh the default shell"
-chsh $(which zsh)
-
-echo "Installing Oh My! Zshell..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" > /dev/null 2>&1
-
-echo "Copying zsh config..."
-cp ./config/.zshrc ~/.zshrc
-
-echo "zsh setup complete. The next time you login, zsh will be your default shell."
-
-# Make sure tmux is setup, tmux plugin manager, and add our custom tmux
-# configuration files
-
-if ! [ -x "$(command -v tmux)" ]; then
-    echo "tmux not found. Installing..."
-    sudo apt install -y tmux
+if [ $? -ne 0 ]; then
+    echo $ERROR_MESSAGE_ZSH_HIGHLIGHTING_FAILED
+    exit $ERROR_CODE_ZSH_HIGHLIGHTING_FAILED
 fi
+
+# Set the user's default shell to zsh
+echo "Making zsh the default shell"
+chsh -s $(which zsh)
+if [ $? -ne 0 ]; then
+	echo $ERROR_MESSAGE_SET_SHELL_FAILED
+    exit $ERROR_CODE_SET_SHELL_FAILED
+fi
+
+# Setting up Oh My! Zshell, an add-on pack to make
+# zsh kick more butt.
+echo "Installing Oh My! Zshell..."
+rm -fr "$USER_HOME_DIRECTORY/.oh-my-zsh"
+sh -c "ZSH= $(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) > /dev/null 2>&1" 
+if [ $? -ne 0 ]; then
+    echo $ERROR_MESSAGE_OH_MY_ZSH_FAILED
+    exit $ERROR_CODE_OH_MY_ZSH_FAILED
+fi
+
+# Configure ZSH defaults
+echo "Copying zsh config..."
+cp "$CONFIG_PATH/.zshrc" "$USER_HOME_DIRECTORY~/.zshrc"
+if [ $? -ne 0 ]; then
+    echo $ERROR_MESSAGE_CONFIG_ZSH_FAILED
+    echo $ERROR_CODE_ZSH_FAILED
+fi
+echo "zsh setup complete. The next time you login, zsh will be your default shell."
 
 echo "Setting up tmux plugin manager..."
 tmuxPluginsPath="~/.tmux/plugins/tpm"
