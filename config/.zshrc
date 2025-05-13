@@ -113,3 +113,7 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Starship
 eval "$(starship init zsh)"
+
+# Automatically add Git keys
+eval $(ssh-agent -s) && ssh-add ~/.git/github
+

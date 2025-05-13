@@ -107,3 +107,4 @@ alias core-clean="/data/ccp/vendor/bin/phing clean"
 alias core-install="/data/ccp/vendor/bin/phing install"
 alias php-clear-log="sudo truncate -s 0 /var/log/php.log"
 
+eval $(ssh-agent -s) && ssh-add ~/.ssh/github
